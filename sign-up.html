@@ -3,7 +3,8 @@
 
 <head>
   <meta charset="utf-8">
-  <title>GPU Cloud Login | Lambda</title>
+  <title>GPU Cloud Sign Up |
+    Lambda</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
 
@@ -166,7 +167,7 @@
 
 
 
-  <link rel="stylesheet" href="css/form-page.css">
+  <link rel="stylesheet" href="css/landing.css">
 
 
 
@@ -1714,8 +1715,8 @@
 
 
 
+  <script src="js/landing-controller.js"></script>
 
-  <script src="js/login-controller.js"></script>
 
 
 
@@ -1745,47 +1746,190 @@
 
   <nav id="top-nav">
 
-    <a class="lambda-logo" href="/">
+    <a class="lambda-logo" href="https://lambdalabs.com">
       <img src="images/lambda-logo.svg" alt="Lambda Logo">
     </a>
+    <div id="sign-in-cta-container">
+      <span>Have an account?</span>
+      <a href="sign-in.html">Sign in <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+    </div>
 
   </nav>
   <div id="content-container">
-    <main id="entrance-container" ng-controller="CloudLogInController" ng-init="init()">
+    <main id="entrance-container" ng-controller="CloudEntranceController" ng-init="init()" ng-cloak="">
       <section id="main-section">
-        <div id="content-wrapper">
-          <img id="lambda-logo" src="images/lambda-logo.svg">
-          <section id="login-container">
-            <h1 class="header-1">Sign in to your account</h1>
-            <form class="stretch block form-with-dynamic-labels" ng-class="{disabled: isProcessingLogIn}">
-              <div class="input-container">
-                <input id="email-input" type="text" name="email" autocomplete="email" ng-model="credentials.identifier"
-                  class="input-with-dynamic-label" ng-class="{empty: credentials.identifier.length === 0,
-                          errors: false}">
-                <label for="email-input" class="shrinking-label">Email</label>
+        <section id="register-flow">
+          <div id="register-container">
+            <section class="left-container">
+              <ul class="bulleted-list">
+                <li>
+                  <i class="fas fa-check-circle" aria-hidden="true"></i>
+                  <div>
+                    <div class="title">
+                      The best price for cloud GPUs on the market.<br>Save over 68% vs
+                      AWS, GCP, and Azure
+                    </div>
+                    <div class="description">
+                      No yearly commits or unpredictable spot instances.
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <i class="fas fa-check-circle" aria-hidden="true"></i>
+                  <div>
+                    <div class="title">
+                      Trusted by more than 100,000 ML engineers and researchers
+                    </div>
+                    <div class="description">
+                      94% of the top US research universities use Lambda.
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <i class="fas fa-check-circle" aria-hidden="true"></i>
+                  <div>
+                    <div class="title">Pay by the second</div>
+                    <div class="description">
+                      Only pay for what you use. Starting at $0.50 per hour.
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <i class="fas fa-check-circle" aria-hidden="true"></i>
+                  <div>
+                    <div class="title">
+                      Train &amp; fine-tune models on a GPU cloud built for AI workloads
+                    </div>
+                    <div class="description">
+                      PyTorch®, Tensorflow, and Jupyter pre-installed on every GPU
+                      instance.
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <i class="fas fa-check-circle" aria-hidden="true"></i>
+                  <div>
+                    <div class="title">Ease of use</div>
+                    <div class="description">
+                      Launch ML-optimized instances in just a few clicks.
+                    </div>
+                  </div>
+                </li>
+              </ul>
+              <div id="customers-container">
+                <img id="generally-intelligent-logo" src="images/generally-intelligent.svg"
+                  alt="Generally Intelligent logo">
+                <img id="intuitive-logo" src="images/intuitive.svg" alt="Intuitive logo">
+                <img id="samsung-logo" src="images/samsung.svg" alt="Samsung logo">
+                <img id="sony-logo" src="images/sony.svg" alt="Sony logo">
+                <img id="voltron-data-logo" src="images/voltron-data.svg" alt="Voltron Data logo">
+                <img id="writer-logo" src="images/writer.svg" alt="Writer logo">
               </div>
-              <div class="input-container">
-                <input id="password-input" type="password" name="password" autocomplete="current-password"
-                  ng-model="credentials.secret" class="input-with-dynamic-label" ng-class="{empty: credentials.secret.length === 0,
-                          errors: false}">
-                <label for="password-input" class="shrinking-label">Password</label>
-              </div>
+            </section>
+            <section class="divider"></section>
+            <section class="right-container">
+              <h1 class="header-1">Create your free account</h1>
+              <form class="block form-with-dynamic-labels" ng-class="{'disabled': isProcessingSignUp}">
+                <div class="input-container" ng-if="!account.token">
+                  <label for="account-type-input">Account type</label>
+                  <select id="account-type-input" ng-model="account.tax_type" required="">
+                    <option value="" disabled="" hidden="">Select account type</option>
+                    <option value="individual">Individual</option>
+                    <option value="business">Business</option>
+                  </select>
+                </div>
 
-              <button ng-click="logIn()" class="external cta blue" ng-class="{disabled: isProcessingLogIn}">Sign
-                in</button>
-            </form>
-            <div id="extra-actions-container">
-              <div class="small-cta-container">
-                <span>Forgot your password?</span>
-                <a href="#">Reset your password</a>
-              </div>
-              <div class="small-cta-container">
-                <span>Don't have an account?</span>
-                <a href="sign-up.html">Sign up</a>
-              </div>
-            </div>
-          </section>
-        </div>
+                <div class="input-container">
+                  <input id="first-name-input" ng-blur="setFirstNameErrors()" ng-change="errors.first_name = null"
+                    type="text" name="first-name" autocomplete="given-name" ng-model="account.first_name"
+                    class="input-with-dynamic-label"
+                    ng-class="{empty: account.first_name.length === 0, errors: errors.first_name}" maxlength="150">
+                  <label for="first-name-input" class="shrinking-label">First name</label>
+                  <div ng-show="errors.first_name" class="err-msg">
+                    [[ errors.first_name ]]
+                  </div>
+                </div>
+
+                <div class="input-container">
+                  <input id="last-name-input" ng-blur="setLastNameErrors()" ng-change="errors.last_name = null"
+                    type="text" name="last-name" autocomplete="family-name" ng-model="account.last_name"
+                    class="input-with-dynamic-label"
+                    ng-class="{empty: account.last_name.length === 0, errors: errors.last_name}" maxlength="150">
+                  <label for="last-name-input" class="shrinking-label">Last name</label>
+                  <div ng-show="errors.last_name" class="err-msg">
+                    [[ errors.last_name ]]
+                  </div>
+                </div>
+
+                <div class="input-container" ng-if="!account.token &amp;&amp; account.tax_type == 'business'">
+                  <input id="organization-input" ng-change="errors.organization = null" type="text" name="organization"
+                    autocomplete="organization" ng-model="account.organization" class="input-with-dynamic-label"
+                    ng-class="{empty: account.organization.length === 0, errors: errors.organization}" maxlength="128">
+                  <label for="organization-input" class="shrinking-label">Organization (optional)</label>
+                  <div ng-show="errors.organization" class="err-msg">
+                    [[ errors.organization ]]
+                  </div>
+                </div>
+
+                <div class="input-container">
+                  <input id="phone_number-input" ng-change="errors.phone_number = null" type="tel" name="phone-number"
+                    autocomplete="phone-number" ng-model="account.phone_number" class="input-with-dynamic-label"
+                    ng-class="{empty: account.phone_number.length === 0, errors: errors.phone_number}">
+                  <label for="phone_number-input" class="shrinking-label">Phone number (optional)</label>
+                  <div ng-show="errors.phone_number" class="err-msg">
+                    [[ errors.phone_number ]]
+                  </div>
+                </div>
+
+                <div class="input-container">
+                  <input id="email-input" ng-blur="setEmailErrors()" ng-change="errors.email = null" type="text"
+                    name="email" autocomplete="email" ng-model="account.email" class="input-with-dynamic-label"
+                    ng-readonly="isEmailReadOnly" ng-class="{empty: account.email.length === 0, errors: errors.email}">
+                  <label for="email-input" class="shrinking-label">Email</label>
+                  <div ng-show="errors.email" class="err-msg">[[ errors.email ]]</div>
+                </div>
+
+                <div class="input-container">
+                  <input id="password-input" ng-blur="setPasswordErrors()" ng-change="errors.password = null"
+                    type="password" name="password" autocomplete="new-password" ng-model="account.password"
+                    class="input-with-dynamic-label"
+                    ng-class="{empty: account.password.length === 0, errors: errors.password}">
+                  <label for="password-input" class="shrinking-label">Password</label>
+                  <div ng-show="errors.password" class="err-msg">
+                    [[ errors.password ]]
+                  </div>
+                </div>
+
+                <div class="input-container flex">
+                  <div class="accept-terms-container">
+                    <input id="has-accepted-tos-input" ng-change="errors.has_accepted_tos = null" type="checkbox"
+                      name="has_accepted_tos" autocomplete="has_accepted_tos" ng-model="account.has_accepted_tos"
+                      ng-class="{errors: errors.has_accepted_tos}">
+                    <label for="has-accepted-tos-input" class="checkbox-label">I agree to Lambda's
+                      <a href="/legal/privacy-policy" target="_blank">Privacy Policy</a>,
+                      <a href="/legal/terms-of-service" target="_blank">Terms of Service</a>, and
+                      <a href="/legal/terms-of-service#acceptable-use-policy" target="_blank">Acceptable Use Policy</a>
+                    </label>
+                  </div>
+                  <div ng-show="errors.has_accepted_tos" class="err-msg">
+                    [[ errors.has_accepted_tos ]]
+                  </div>
+                </div>
+                <button ng-click="signUp()" ng-class="{disabled: !isSignUpButtonEnabled}" type="submit"
+                  class="external cta blue">
+                  Sign up
+                </button>
+              </form>
+              <p>
+                By adding my phone number, I agree that Lambda may contact me by phone
+                or text. Frequency varies. Message and data rates may apply. Lambda's
+                <a href="/legal/terms-of-service" target="_blank">Terms of Use</a> &amp;
+                <a href="/legal/privacy-policy" target="_blank">Privacy Policy</a>
+                apply.
+              </p>
+            </section>
+          </div>
+        </section>
       </section>
     </main>
   </div>
@@ -1853,7 +1997,7 @@
     !function (f, b, e, v, n, t, s) {
       if (f.fbq) return; n = f.fbq = function () {
         n.callMethod ?
-        n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+          n.callMethod.apply(n, arguments) : n.queue.push(arguments)
       };
       if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0';
       n.queue = []; t = b.createElement(e); t.async = !0;
@@ -1924,7 +2068,7 @@
 
   <script defer=""
     src="https://static.cloudflareinsights.com/beacon.min.js/v84a3a4012de94ce1a686ba8c167c359c1696973893317"
-    data-cf-beacon="{" rayid":"8595b8d16bf30a75","version":"2024.2.1","token":"2819339dbb3e4adeaab5f6a40abf2814"}"=""
+    data-cf-beacon="{" rayid":"859721a26b0b6576","version":"2024.2.1","token":"2819339dbb3e4adeaab5f6a40abf2814"}"=""
     crossorigin="anonymous"></script>
 
 
