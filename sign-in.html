@@ -1749,12 +1749,18 @@
       <img src="images/lambda-logo.svg" alt="Lambda Logo">
     </a>
 
+
   </nav>
   <div id="content-container">
     <main id="entrance-container" ng-controller="CloudLogInController" ng-init="init()">
       <section id="main-section">
         <div id="content-wrapper">
-          <img id="lambda-logo" src="images/lambda-logo.svg">
+
+          <div class="">
+            <h1 class="fonts" style="font-size: 30px;font-weight: 900;margin-bottom: 10px;">
+              Gpu10xCloud
+            </h1>
+          </div>
           <section id="login-container">
             <h1 class="header-1">Sign in to your account</h1>
             <form class="stretch block form-with-dynamic-labels" ng-class="{disabled: isProcessingLogIn}">
@@ -1853,7 +1859,7 @@
     !function (f, b, e, v, n, t, s) {
       if (f.fbq) return; n = f.fbq = function () {
         n.callMethod ?
-        n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+          n.callMethod.apply(n, arguments) : n.queue.push(arguments)
       };
       if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0';
       n.queue = []; t = b.createElement(e); t.async = !0;
