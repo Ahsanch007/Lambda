@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <title>GPU Cloud Sign Up |
-    Lambda</title>
+    Gpu10xCloud</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
 
@@ -1784,7 +1784,7 @@
                       Trusted by more than 100,000 ML engineers and researchers
                     </div>
                     <div class="description">
-                      94% of the top US research universities use Lambda.
+                      94% of the top US research universities use Gpu10xCloud.
                     </div>
                   </div>
                 </li>
@@ -1908,7 +1908,7 @@
                     <input id="has-accepted-tos-input" ng-change="errors.has_accepted_tos = null" type="checkbox"
                       name="has_accepted_tos" autocomplete="has_accepted_tos" ng-model="account.has_accepted_tos"
                       ng-class="{errors: errors.has_accepted_tos}">
-                    <label for="has-accepted-tos-input" class="checkbox-label">I agree to Lambda's
+                    <label for="has-accepted-tos-input" class="checkbox-label">I agree to Gpu10xCloud's
                       <a href="/legal/privacy-policy" target="_blank">Privacy Policy</a>,
                       <a href="/legal/terms-of-service" target="_blank">Terms of Service</a>, and
                       <a href="/legal/terms-of-service#acceptable-use-policy" target="_blank">Acceptable Use Policy</a>
@@ -1918,14 +1918,15 @@
                     [[ errors.has_accepted_tos ]]
                   </div>
                 </div>
-                <button ng-click="signUp()" ng-class="{disabled: !isSignUpButtonEnabled}" type="submit"
-                  class="external cta blue">
+                <!-- ng-click="signUp()" -->
+                <button ng-class="{disabled: !isSignUpButtonEnabled}" type="submit" class="external cta blue"
+                  id="#signup">
                   Sign up
                 </button>
               </form>
               <p>
-                By adding my phone number, I agree that Lambda may contact me by phone
-                or text. Frequency varies. Message and data rates may apply. Lambda's
+                By adding my phone number, I agree that Gpu10xCloud may contact me by phone
+                or text. Frequency varies. Message and data rates may apply. Gpu10xCloud's
                 <a href="/legal/terms-of-service" target="_blank">Terms of Use</a> &amp;
                 <a href="/legal/privacy-policy" target="_blank">Privacy Policy</a>
                 apply.
@@ -2064,6 +2065,118 @@
     window.intercomSettings.app_id = 'ahj4606e';
     (function () { var w = window; var ic = w.Intercom; if (typeof ic === "function") { ic('reattach_activator'); ic('update', w.intercomSettings); } else { var d = document; var i = function () { i.c(arguments); }; i.q = []; i.c = function (args) { i.q.push(args); }; w.Intercom = i; var l = function () { var s = d.createElement('script'); s.type = 'text/javascript'; s.async = true; s.src = 'https://widget.intercom.io/widget/' + w.intercomSettings.app_id; var x = d.getElementsByTagName('script')[0]; x.parentNode.insertBefore(s, x); }; if (document.readyState === 'complete') { l(); } else if (w.attachEvent) { w.attachEvent('onload', l); } else { w.addEventListener('load', l, false); } } })();
   </script>
+
+  <!--   SIGNUP -->
+  <script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.2/firebase-app.js";
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+    import {
+      getAuth,
+      createUserWithEmailAndPassword,
+      signInWithEmailAndPassword,
+    } from "https://www.gstatic.com/firebasejs/10.5.2/firebase-auth.js";
+
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyBv8p9OrG0W7POVk3PA9WVaf_n3blQKVNI",
+      authDomain: "lambda-43530.firebaseapp.com",
+      projectId: "lambda-43530",
+      storageBucket: "lambda-43530.appspot.com",
+      messagingSenderId: "839355113182",
+      appId: "1:839355113182:web:39a62d6dacc5aa4690ec4f"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth();
+
+    // Registration function
+    function register(email, password) {
+      createUserWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+          // Signed in
+          const user = userCredential.user;
+          console.log(user);
+          //
+          alert("User created successfully");
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          console.log(errorCode, errorMessage);
+          // ..
+        });
+    }
+
+
+    const signupButton = document.getElementById("#signup");
+
+    signupButton.addEventListener("click", () => {
+      const firstName = document.getElementById("first-name-input").value;
+      const lastName = document.getElementById("last-name-input").value;
+      const email = document.getElementById("email-input").value;
+      const password = document.getElementById("password-input").value;
+
+      const accountType = document.getElementById("account-type-input").value;
+
+      const phone = document.getElementById("phone_number-input").value;
+
+
+      if (validateForm(email, password, firstName, lastName, accountType)) {
+        register(email, password);
+        document.getElementById("first-name-input").value = "";
+        document.getElementById("last-name-input").value = "";
+        document.getElementById("email-input").value = "";
+        document.getElementById("password-input").value = "";
+        document.getElementById("phone_number-input").value = "";
+
+
+      }
+      console.log("clicked");
+    });
+    function validateForm(email, password, firstName, lastName, accountType) {
+      // Validate email, password, and account type
+      if (!validateEmail(email) || !validatePassword(password) || accountType.trim() === "") {
+        // alert("Invalid email, password, or account type");
+        return false;
+      }
+
+      // Validate first and last name
+      if (firstName.trim() === "" || lastName.trim() === "") {
+        alert("Invalid first or last name");
+        return false;
+      }
+
+      // Form is valid
+      return true;
+    }
+
+    function validatePassword(password) {
+      // Password must be at least 10 characters long
+      if (password.length < script 10) {
+        console.log("Password must be at least 10 characters long", password);
+        return false;
+      }
+
+      // Password is valid
+      return true;
+    }
+
+    function validateEmail(email) {
+      // Email must be valid
+      if (!email.includes("@")) {
+        console.log("Email must be valid", email);
+        return false;
+      }
+
+      // Email is valid
+      return true;
+    }
+
+  </script>
+
 
   <!-- Start of HubSpot Embed Code -->
   <script type="text/javascript" id="hs-script-loader" async="" defer="" src="js/21998649.js"></script>
